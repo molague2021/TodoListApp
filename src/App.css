@@ -1,5 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
+  background-color: #202142;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -26,6 +34,84 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.btn {
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* .btn-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+} */
+
+.btn-primary {
+  background-color: #202142;
+}
+
+.btn-secondary {
+  background: #ff6a95;
+}
+
+.card-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.card-container h2 {
+  display: flex;
+  align-items: center;
+}
+
+.card h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.header-container {
+  max-width: 768px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.container {
+  background-color: white;
+  max-width: 768px;
+  margin: auto;
+  padding: 0 20px 20px;
+}
+
+header {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.title {
+  background-color: white;
+  color: #333;
+  padding: 20px 0 0;
+  margin: 20px 0 0;
+  position: relative;
+  border-radius: 8px;
 }
 
 @keyframes App-logo-spin {

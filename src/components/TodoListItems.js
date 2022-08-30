@@ -28,6 +28,11 @@ function TodoListItems() {
     },
   ]);
 
+  const [editTodo, setEditTodo] = useState({
+    data: {},
+    edit: false,
+  });
+
   // Checkmark the completed items in the List
   const handleCheck = (id) => {
     setTodoItem((todoItem) =>
@@ -44,6 +49,16 @@ function TodoListItems() {
     );
   };
 
+  const handleEdit = (id) => {
+    console.log('edit');
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete?')) {
+      setTodoItem(todoItem.filter((item) => item.id !== id));
+    }
+  };
+
   useEffect(() => {
     console.log('Calling use effect');
   }, [todoItem]);
@@ -53,11 +68,10 @@ function TodoListItems() {
       {todoItem.map((item) => (
         <Card>
           <div key={item.id}>
-            <button className="close">
+            <button className="close" onClick={() => handleDelete(item.id)}>
               <FaTimes />
             </button>
-
-            <button className="edit">
+            <button className="edit" onClick={() => handleEdit(item.id)}>
               <FaEdit />
             </button>
             <div style={{ display: 'flex' }}>

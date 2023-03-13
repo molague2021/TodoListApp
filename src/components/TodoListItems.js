@@ -1,71 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import TodoContext from '../context/TodoContext';
 import { FaTimes, FaEdit, FaRegCircle, FaRegCheckCircle } from 'react-icons/fa';
+import { Spinner } from '../shared/Spinner';
 import Card from '../shared/Card';
+import { motion, AnimatePresence } from 'framer-motion';
 import './TodoListItems.css';
 
 function TodoListItems() {
-  const [todoItem, setTodoItem] = useState([
-    {
-      id: 1,
-      text: 'Wash dishes',
-      category: ['Bills', 'Home'],
-      date: new Date(2022, 11, 23),
-      complete: true,
-    },
-    {
-      id: 2,
-      text: 'Wash dishes',
-      category: ['Bills', 'Home'],
-      date: new Date(2022, 11, 23),
-      complete: false,
-    },
-    {
-      id: 3,
-      text: 'Wash dishes',
-      category: ['Bills', 'Home'],
-      date: new Date(2022, 11, 23),
-      complete: false,
-    },
-  ]);
+  const { todoList, isLoading } = useContext(TodoContext);
 
-  const [editTodo, setEditTodo] = useState({
-    data: {},
-    edit: false,
-  });
+  if (!isLoading && (!todoList || todoList.length === 0)) {
+    return <p>No Feedback Yet</p>;
+  }
 
-  // Checkmark the completed items in the List
+  //Checkmark the completed items in the List
   const handleCheck = (id) => {
-    setTodoItem((todoItem) =>
-      todoItem.map((selectedItem) => {
-        if (selectedItem.id === id) {
-          return {
-            ...selectedItem,
-            complete: !selectedItem.complete,
-          };
-        }
-
-        return selectedItem;
-      })
-    );
+    // setTodoItem((todoItem) =>
+    //   todoItem.map((selectedItem) => {
+    //     if (selectedItem.id === id) {
+    //       return {
+    //         ...selectedItem,
+    //         complete: !selectedItem.complete,
+    //       };
+    //     }
+    //     return selectedItem;
+    //   })
+    // );
   };
 
   const handleEdit = (id) => {
-    console.log('edit');
+    //console.log('edit');
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete?')) {
-      setTodoItem(todoItem.filter((item) => item.id !== id));
-    }
+    // if (window.confirm('Are you sure you want to delete?')) {
+    //   setTodoItem(todoItem.filter((item) => item.id !== id));
+    // }
   };
 
-  useEffect(() => {
-    console.log('Calling use effect');
-  }, [todoItem]);
+  // useEffect(() => {
+  //   console.log('Calling use effect');
+  // }, [todoItem]);
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
-      {todoItem.map((item) => (
+      {todoList?.map((item) => (
         <Card>
           <div key={item.id}>
             <button className="close" onClick={() => handleDelete(item.id)}>
@@ -88,7 +69,7 @@ function TodoListItems() {
               </button>
               <div>
                 <div className="text-display">{item.text}</div>
-                <div className="date">{item.date.toDateString()}</div>
+                <div className="date">{item.date}</div>
               </div>
               <div className="category-text">
                 {item.category.map((category) => (

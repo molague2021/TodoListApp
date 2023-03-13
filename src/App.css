@@ -98,14 +98,6 @@ header {
   align-items: center;
 }
 
-.input-group {
-  display: flex;
-  flex-direction: row;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
 .title {
   background-color: white;
   color: #333;

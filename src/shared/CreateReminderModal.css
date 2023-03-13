@@ -1,5 +1,5 @@
 .darkBG {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;
   height: 100vh;
   z-index: 0;
@@ -17,8 +17,8 @@
 }
 
 .modal {
-  width: 250px;
-  height: 170px;
+  width: 500px;
+  height: 340px;
   background: white;
   color: white;
   z-index: 10;
@@ -38,8 +38,8 @@
   margin: 0;
   padding: 10px;
   color: #2c3e50;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 24px;
   text-align: center;
 }
 
@@ -94,16 +94,14 @@
   padding: 11px 28px;
   border-radius: 12px;
   font-size: 0.8rem;
-  border: none;
-  color: #fff;
-  background: #ff3e4e;
+  border: 1px solid #202142;
+  color: black;
+  background: #fff;
   transition: all 0.25s ease;
 }
 
 .deleteBtn:hover {
-  box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
   transform: translateY(-5px);
-  background: #ff3e4e;
 }
 
 .cancelBtn {
@@ -114,13 +112,32 @@
   border-radius: 12px;
   font-size: 0.8rem;
   border: none;
-  color: #2c3e50;
-  background: #fcfcfc;
+  color: #fcfcfc;
+  background: #202142;
   transition: all 0.25s ease;
 }
 
 .cancelBtn:hover {
   box-shadow: none;
-  transform: none;
-  background: whitesmoke;
+  transform: translateY(-5px);
+  background: #282c34;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin: 10px 40px;
+}
+
+input {
+  flex-grow: 2;
+  border: none;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
 }

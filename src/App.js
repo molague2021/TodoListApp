@@ -4,23 +4,43 @@ import TodoListForm from './components/TodoListForm';
 import TodoListItems from './components/TodoListItems';
 import Header from './components/Header';
 import { useState } from 'react';
-import CreateReminderModal from './shared/CreateReminderModal';
+//import CreateReminderModal from './shared/CreateReminderModal';
+import { CreateReminderModal } from './components/CreateReminderModal/CreateReminderModal';
 import { TodoProvider } from './context/TodoContext';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <TodoProvider>
-      <div className="App">
-        <Header />
-        <div className="container">
-          <TodoListForm setIsOpen={setIsOpen} />
-          <TodoListItems />
+    <QueryClientProvider client={queryClient}>
+      <TodoProvider>
+        <div className="App">
+          <Header />
+          <div className="container">
+            <TodoListForm setIsOpen={setIsOpen} />
+            <TodoListItems />
+          </div>
+          {/* {isOpen && <CreateReminderModal setIsOpen={setIsOpen} />} */}
         </div>
-        {isOpen && <CreateReminderModal setIsOpen={setIsOpen} />}
-      </div>
-    </TodoProvider>
+        <CreateReminderModal open={isOpen} setIsOpen={setIsOpen} />
+      </TodoProvider>
+    </QueryClientProvider>
   );
 }
 

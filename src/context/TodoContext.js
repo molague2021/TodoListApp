@@ -22,10 +22,22 @@ export const TodoProvider = ({ children }) => {
     setLoading(false);
   };
 
+  const postTodoList = async (todoItem) => {
+    const response = await fetch('/todo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(todoItem),
+    });
+
+    console.log(response);
+  };
+
   const [state, dispatch] = useReducer(initialState);
 
   return (
-    <TodoContext.Provider value={{ todoList, isLoading }}>
+    <TodoContext.Provider value={{ todoList, isLoading, postTodoList }}>
       {children}
     </TodoContext.Provider>
   );

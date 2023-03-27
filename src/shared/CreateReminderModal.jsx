@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './CreateReminderModal.css';
 import { RiCloseLine } from 'react-icons/ri';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers';
+import { Container } from '@mui/material';
 
 function CreateReminderModal({ setIsOpen }) {
   const [reminder, setReminder] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState();
 
   const handleCancel = () => {
     console.log('Cancelling the creationg of a todo Item.');
@@ -46,10 +48,19 @@ function CreateReminderModal({ setIsOpen }) {
               placeholder="Create a Reminder"
             />
           </div>
-          <DatePicker
+          {/* <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-          />
+          /> */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Container component={'DatePicker'}>
+              <DatePicker
+                label={'Due Date'}
+                value={startDate}
+                onChange={(newValue) => setStartDate(newValue)}
+              />
+            </Container>
+          </LocalizationProvider>
           <div className="modalActions">
             <div className="actionsContainer">
               <button className="deleteBtn" onClick={handleCancel}>

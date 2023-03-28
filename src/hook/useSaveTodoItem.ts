@@ -5,18 +5,23 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query';
+import { TodoItem } from '../components/CreateReminderModal/CreateReminderModal';
 import { createTodoItem } from '../services/TodoService';
+
+interface CreateScheduleProp {
+  todoItem: TodoItem
+}
 
 export const useSaveTodoItem = () => {
   //const queryClient = useQueryClient();
 
   return useMutation(
-    (todoItem) => {
+    ({todoItem}: CreateScheduleProp) => {
       return createTodoItem(todoItem);
     },
     {
       onSuccess: (response) => {
-        console.log(response);
+        return console.log(response);
       },
     }
   );

@@ -2,7 +2,7 @@
   "todo": [
     {
       "id": 1,
-      "text": "Wash dishes 1",
+      "name": "Wash dishes 1",
       "category": [
         "Bills",
         "Home"
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "text": "Wash dishes 2",
+      "name": "Wash dishes 2",
       "category": [
         "Bills",
         "Home"
@@ -22,13 +22,33 @@
     },
     {
       "id": 3,
-      "text": "Wash dishes 3",
+      "name": "Wash dishes 3",
       "category": [
         "Bills",
         "Home"
       ],
       "date": "2022/11/23",
       "complete": true
+    },
+    {
+      "name": "Blah",
+      "date": "2023/03/31",
+      "category": [
+        "Bills",
+        "Home"
+      ],
+      "id": 4
+    },
+    {
+      "name": "Testing 2",
+      "date": "2023-04-01",
+      "category": [
+        "Bills",
+        "Home",
+        "Personal"
+      ],
+      "complete": false,
+      "id": 5
     }
   ]
 }

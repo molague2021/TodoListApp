@@ -18,13 +18,6 @@ import { TextField } from '@mui/material';
 import { useSaveTodoItem } from '../../hook/useSaveTodoItem';
 import { useContext } from 'react';
 import TodoContext from '../../context/TodoContext';
-import {
-	useQuery,
-	useMutation,
-	useQueryClient,
-	QueryClient,
-	QueryClientProvider,
-} from 'react-query';
 
 const labels = [
 	{ id: 1, name: 'Bills' },

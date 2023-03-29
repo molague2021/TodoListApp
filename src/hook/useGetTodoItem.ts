@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getTodoItem } from "../services/TodoService";
 
 export const useGetTodoItem = () => {
-    return useQuery('todoItems', () => getTodoItem())
+    return useQuery(['todoItems'], () => getTodoItem())
 };

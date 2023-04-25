@@ -4,19 +4,19 @@ import {
   useQueryClient,
   QueryClient,
   QueryClientProvider,
-} from 'react-query';
+} from '@tanstack/react-query';
 import { TodoItem } from '../components/CreateReminderModal/CreateReminderModal';
 import { createTodoItem } from '../services/TodoService';
 
 interface CreateScheduleProp {
-  todoItem: TodoItem
+  todoItem: TodoItem;
 }
 
 export const useSaveTodoItem = () => {
   //const queryClient = useQueryClient();
 
   return useMutation(
-    ({todoItem}: CreateScheduleProp) => {
+    ({ todoItem }: CreateScheduleProp) => {
       return createTodoItem(todoItem);
     },
     {

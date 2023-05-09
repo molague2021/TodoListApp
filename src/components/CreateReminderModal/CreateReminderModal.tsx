@@ -69,7 +69,7 @@ export const CreateReminderModal = ({
 			console.log('useEffect: ', startDate.format('YYYY-MM-DD'));
 			setTodoItem({
 				...todoItem,
-				date: startDate.format('YYYY-MM-DD'),
+				date: startDate.format('YYYY/MM/DD'),
 			});
 		}
 	}, [startDate]);

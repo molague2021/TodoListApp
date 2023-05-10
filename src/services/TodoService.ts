@@ -8,9 +8,22 @@ export const getTodoItem = async () => {
     .then(({ data }) => data);
 };
 
-export const createTodoItem = async (todoItem): Promise<AxiosResponse> => {
+export const createTodoItem = async (
+  todoItemPayload
+): Promise<AxiosResponse> => {
   return axios
-    .post('/todo', todoItem, {
+    .post('/todo', todoItemPayload, {
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(({ data }) => data);
+};
+
+export const updateTodoItem = async (
+  todoItemPayload,
+  todoItemId
+): Promise<AxiosResponse> => {
+  return axios
+    .put(`/todo/${todoItemId}`, todoItemPayload, {
       headers: { 'Content-Type': 'application/json' },
     })
     .then(({ data }) => data);

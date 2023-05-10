@@ -9,7 +9,7 @@ import { useDeleteTodoItem } from '../hook/useDeleteTodoItem';
 import { motion, AnimatePresence } from 'framer-motion';
 import './TodoListItems.css';
 
-function TodoListItems() {
+function TodoListItems({ onEditTodoItem }) {
   const queryClient = useQueryClient();
   const { mutate: mutateDeleteTodoItem } = useDeleteTodoItem();
   //const { todoList, isLoading } = useContext(TodoContext);
@@ -34,8 +34,8 @@ function TodoListItems() {
     // );
   };
 
-  const handleEdit = (id) => {
-    //console.log('edit');
+  const handleEdit = (e, item) => {
+    onEditTodoItem(e, item);
   };
 
   const handleDelete = (id) => {
@@ -67,7 +67,7 @@ function TodoListItems() {
             <button className="close" onClick={() => handleDelete(item.id)}>
               <FaTimes />
             </button>
-            <button className="edit" onClick={() => handleEdit(item.id)}>
+            <button className="edit" onClick={(e) => handleEdit(e, item)}>
               <FaEdit />
             </button>
             <div style={{ display: 'flex' }}>

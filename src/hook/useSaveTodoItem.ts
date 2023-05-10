@@ -1,32 +1,36 @@
 import {
-	useQuery,
-	useMutation,
-	useQueryClient,
-	QueryClient,
-	QueryClientProvider,
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
 } from '@tanstack/react-query';
 import { TodoItem } from '../components/CreateReminderModal/CreateReminderModal';
-import { createTodoItem } from '../services/TodoService';
+import { createTodoItem, updateTodoItem } from '../services/TodoService';
 
 interface CreateScheduleProp {
-	todoItem: TodoItem;
+  todoItemPayload: TodoItem;
+  todoItemId?: string;
 }
 
 export const useSaveTodoItem = () => {
-	const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-	return useMutation(
-		({ todoItem }: CreateScheduleProp) => {
-			return createTodoItem(todoItem);
-		},
-		{
-			onSuccess: (response) => {
-				console.log('response: ', response);
-				queryClient.setQueryData(['todoItems'], (item: TodoItem[]) => {
-					console.log('item', item);
-					return [...item, response];
-				});
-			},
-		}
-	);
+  return useMutation(
+    ({ todoItemPayload, todoItemId }: CreateScheduleProp) => {
+      if (todoItemId) {
+        return updateTodoItem(todoItemPayload, todoItemId);
+      } else {
+        return createTodoItem(todoItemPayload);
+      }
+    },
+    {
+      onSuccess: (response) => {
+        queryClient.setQueryData(['todoItems'], (item: TodoItem[]) => {
+          console.log('item', item);
+          return [...item, response];
+        });
+      },
+    }
+  );
 };

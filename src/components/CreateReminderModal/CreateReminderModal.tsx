@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import {
   Dialog,
@@ -16,47 +16,42 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import { TextField } from '@mui/material';
 import { useSaveTodoItem } from '../../hook/useSaveTodoItem';
+import { TodoItem } from '../../TodoItem.interface';
 import { useContext } from 'react';
 import TodoContext from '../../context/TodoContext';
-
-const labels = [
-  { id: 1, name: 'Bills' },
-  { id: 2, name: 'Home' },
-  { id: 3, name: 'Personal' },
-];
-
-export type TodoItem = {
-  name: string;
-  date: string;
-  category: string[];
-  complete: boolean;
-};
 
 interface CreateReminderModalProps {
   open: boolean;
   setIsOpen: (open: boolean) => void;
+  todoItem: TodoItem;
 }
 
 export const CreateReminderModal = ({
   open,
   setIsOpen,
+  todoItem,
 }: CreateReminderModalProps) => {
-  const [todoItem, setTodoItem] = useState<TodoItem>({
-    name: '',
-    date: '',
-    category: labels.map((label) => label.name),
-    complete: false,
-  });
-  const [reminderName, setReminderName] = useState('');
+  const todoItemRef = useRef(todoItem);
+  console.log(todoItemRef);
+  const [reminderName, setReminderName] = useState<string>();
   const [startDate, setStartDate] = useState<Dayjs>();
+
+  useEffect(() => {
+    setStartDate(dayjs(todoItemRef.current.date));
+  }, [todoItemRef.current.date]);
+
+  useEffect(() => {
+    setReminderName(todoItemRef.current.name);
+  }, [todoItemRef.current.name]);
 
   const { mutate: saveTodoItem } = useSaveTodoItem();
 
   const onReminderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodoItem({
-      ...todoItem,
+    todoItemRef.current = {
+      ...todoItemRef.current,
       name: e.target.value,
-    });
+    };
+    setReminderName(e.target.value);
   };
 
   const onDateChange = (date: Dayjs) => {
@@ -66,29 +61,22 @@ export const CreateReminderModal = ({
 
   useEffect(() => {
     if (startDate) {
-      console.log('useEffect: ', startDate.format('YYYY-MM-DD'));
-      setTodoItem({
-        ...todoItem,
+      console.log('useEffect: ', startDate);
+      todoItemRef.current = {
+        ...todoItemRef.current,
         date: startDate.format('YYYY/MM/DD'),
-      });
+      };
     }
   }, [startDate]);
 
-  useEffect(() => {
-    console.log('todo: ', todoItem);
-  }, [todoItem]);
-
   const onSubmit = () => {
     saveTodoItem(
-      { todoItemPayload: todoItem, todoItemId: '' },
+      {
+        todoItemPayload: todoItem,
+        todoItemId: todoItemRef.current.id.toString(),
+      },
       {
         onSuccess: () => {
-          setTodoItem({
-            name: '',
-            date: '',
-            category: labels.map((label) => label.name),
-            complete: false,
-          });
           setIsOpen(false);
         },
       }
@@ -96,12 +84,6 @@ export const CreateReminderModal = ({
   };
 
   const onCancel = () => {
-    setTodoItem({
-      name: '',
-      date: '',
-      category: labels.map((label) => label.name),
-      complete: false,
-    });
     setIsOpen(false);
   };
 
@@ -125,7 +107,7 @@ export const CreateReminderModal = ({
             variant={'outlined'}
             onChange={onReminderNameChange}
             type="text"
-            value={todoItem.name}
+            value={reminderName}
             placeholder="Reminder name"
           />
         </div>

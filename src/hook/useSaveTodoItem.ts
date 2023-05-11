@@ -5,7 +5,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { TodoItem } from '../components/CreateReminderModal/CreateReminderModal';
+import { TodoItem } from '../TodoItem.interface';
 import { createTodoItem, updateTodoItem } from '../services/TodoService';
 
 interface CreateScheduleProp {

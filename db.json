@@ -1,3 +1,15 @@
 {
-  "todo": []
+  "todo": [
+    {
+      "name": "Creating Reminder",
+      "date": "2023-05-18",
+      "category": [
+        "Bills",
+        "Home",
+        "Personal"
+      ],
+      "complete": false,
+      "id": 1
+    }
+  ]
 }

@@ -2,15 +2,15 @@ import { useState } from 'react';
 import CreateReminderModal from '../shared/CreateReminderModal';
 import TodoListItems from './TodoListItems';
 
-function TodoListForm({ setIsOpen }) {
+function TodoListForm({ setIsOpen, handleEditTodoItem }) {
   const handleCreateReminder = (e) => {
     e.preventDefault();
     setIsOpen(true);
   };
 
-  const handleEditTodoItem = (e, todoItem) => {
+  const onEditTodoItem = (e, todoItem) => {
     e.preventDefault();
-    setIsOpen(true);
+    handleEditTodoItem(todoItem);
   };
 
   return (
@@ -24,7 +24,7 @@ function TodoListForm({ setIsOpen }) {
             </button>
           </div>
         </div>
-        <TodoListItems onEditTodoItem={handleEditTodoItem} />
+        <TodoListItems onEditTodoItem={onEditTodoItem} />
       </form>
     </div>
   );

@@ -7,39 +7,35 @@ import { CreateReminderModal } from './CreateReminderModal/CreateReminderModal';
 import Header from './Header';
 
 const labels = [
-  { id: 1, name: 'Bills' },
-  { id: 2, name: 'Home' },
-  { id: 3, name: 'Personal' },
+	{ id: 1, name: 'Bills' },
+	{ id: 2, name: 'Home' },
+	{ id: 3, name: 'Personal' },
 ];
 
 export const TodoList = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [todoItem, setTodoItem] = useState<TodoItem>({
-    name: '',
-    date: '',
-    category: labels.map((label) => label.name),
-    complete: false,
-  });
+	const [isOpen, setIsOpen] = useState(false);
+	const [todoItemToEdit, setTodoItemToEdit] = useState<TodoItem | null>();
 
-  const handleEditTodoItem = (todoItem: TodoItem) => {
-    setTodoItem(todoItem);
-    setIsOpen(true);
-  };
-  return (
-    <div className="App">
-      <Header />
-      <div className="container">
-        <TodoListForm
-          setIsOpen={setIsOpen}
-          handleEditTodoItem={handleEditTodoItem}
-        />
-        {/* <TodoListItems /> */}
-      </div>
-      <CreateReminderModal
-        open={isOpen}
-        setIsOpen={setIsOpen}
-        todoItem={todoItem}
-      />
-    </div>
-  );
+	const handleEditTodoItem = (todoItem: TodoItem) => {
+		console.log(todoItem);
+		setTodoItemToEdit(todoItem);
+		setIsOpen(true);
+	};
+	return (
+		<div className='App'>
+			<Header />
+			<div className='container'>
+				<TodoListForm
+					setIsOpen={setIsOpen}
+					handleEditTodoItem={handleEditTodoItem}
+				/>
+				{/* <TodoListItems /> */}
+			</div>
+			<CreateReminderModal
+				open={isOpen}
+				setIsOpen={setIsOpen}
+				todoItem={todoItemToEdit}
+			/>
+		</div>
+	);
 };

@@ -1,8 +1,8 @@
 {
   "todo": [
     {
-      "name": "Creating Reminder",
-      "date": "2023-05-18",
+      "name": "New Todo Update 2",
+      "date": "2023-05-26T07:00:00.000Z",
       "category": [
         "Bills",
         "Home",
@@ -10,9 +10,6 @@
       ],
       "complete": false,
       "id": 1
-    },
-    {
-      "id": 2
     }
   ]
 }

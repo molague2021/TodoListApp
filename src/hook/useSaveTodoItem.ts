@@ -13,6 +13,10 @@ interface CreateScheduleProp {
   todoItemId?: string;
 }
 
+const todoItemExists = (todoItems, response) => {
+  return todoItems.some((item) => item.id === response.id);
+};
+
 export const useSaveTodoItem = () => {
   const queryClient = useQueryClient();
 
@@ -26,9 +30,19 @@ export const useSaveTodoItem = () => {
     },
     {
       onSuccess: (response) => {
-        queryClient.setQueryData(['todoItems'], (item: TodoItem[]) => {
-          console.log('item', item);
-          return [...item, response];
+        queryClient.setQueryData(['todoItems'], (items: TodoItem[]) => {
+          console.log('item', items, response);
+          if (todoItemExists(items, response)) {
+            return items.map((item) => {
+              if (item.id === response.id) {
+                item = response;
+              }
+
+              return item;
+            });
+          } else {
+            return [...items, response];
+          }
         });
       },
     }

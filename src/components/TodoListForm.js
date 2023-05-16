@@ -9,6 +9,7 @@ function TodoListForm({ setIsOpen, handleEditTodoItem }) {
   };
 
   const onEditTodoItem = (e, todoItem) => {
+    console.log('Edit Todo');
     e.preventDefault();
     handleEditTodoItem(todoItem);
   };

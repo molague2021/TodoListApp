@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { TodoItem } from '../TodoItem.interface';
 
 export const getTodoItem = async () => {
   return axios
@@ -8,9 +9,7 @@ export const getTodoItem = async () => {
     .then(({ data }) => data);
 };
 
-export const createTodoItem = async (
-  todoItemPayload
-): Promise<AxiosResponse> => {
+export const createTodoItem = async (todoItemPayload): Promise<TodoItem> => {
   return axios
     .post('/todo', todoItemPayload, {
       headers: { 'Content-Type': 'application/json' },
@@ -21,7 +20,7 @@ export const createTodoItem = async (
 export const updateTodoItem = async (
   todoItemPayload,
   todoItemId
-): Promise<AxiosResponse> => {
+): Promise<TodoItem> => {
   return axios
     .put(`/todo/${todoItemId}`, todoItemPayload, {
       headers: { 'Content-Type': 'application/json' },

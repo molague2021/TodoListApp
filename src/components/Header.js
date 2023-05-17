@@ -9,7 +9,7 @@ function Header() {
   return (
     <header style={headerStyles}>
       <div className="header-container">
-        <h2>ToDo List</h2>
+        <h2>Todo List</h2>
       </div>
     </header>
   );

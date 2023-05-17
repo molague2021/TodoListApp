@@ -10,6 +10,17 @@
       ],
       "complete": false,
       "id": 1
+    },
+    {
+      "name": "Creating new todo",
+      "date": "2023-05-19T07:00:00.000Z",
+      "category": [
+        "Bills",
+        "Home",
+        "Personal"
+      ],
+      "complete": false,
+      "id": 2
     }
   ]
 }

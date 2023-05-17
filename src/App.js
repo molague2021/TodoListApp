@@ -4,7 +4,7 @@ import { useState } from 'react';
 //import CreateReminderModal from './shared/CreateReminderModal';
 
 import { TodoProvider } from './context/TodoContext';
-import { TodoList } from './components/TodoList';
+import { TodoList } from './components/Todo';
 import {
   useQuery,
   useMutation,

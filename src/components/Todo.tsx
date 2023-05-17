@@ -2,12 +2,13 @@ import { useState } from 'react';
 import '../App.css';
 import dayjs from 'dayjs';
 
-import TodoListForm from './TodoListForm';
-import TodoListItems from './TodoListItems';
+import TodoListForm from './TodoList/TodoListItemsForm';
+import TodoListItems from './TodoList/TodoListItems';
 import { TodoItem } from '../TodoItem.interface';
 import { CreateReminderModal } from './CreateReminderModal/CreateReminderModal';
 import Header from './Header';
 import { Labels, TodoItemDefault } from '../constants/constants';
+import { CompletedList } from './CompletedList/CompletedList';
 
 export const TodoList = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +46,7 @@ export const TodoList = () => {
           setIsOpen={setIsOpen}
           handleEditTodoItem={handleEditTodoItem}
         />
+        <CompletedList />
         {/* <TodoListItems /> */}
       </div>
       <CreateReminderModal

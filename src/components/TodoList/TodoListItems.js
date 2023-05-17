@@ -1,14 +1,15 @@
 import { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import TodoContext from '../context/TodoContext';
+import TodoContext from '../../context/TodoContext';
 import { FaTimes, FaEdit, FaRegCircle, FaRegCheckCircle } from 'react-icons/fa';
-import { Spinner } from '../shared/Spinner';
-import Card from '../shared/Card';
-import { useGetTodoItem } from '../hook/useGetTodoItem';
-import { useDeleteTodoItem } from '../hook/useDeleteTodoItem';
+import { Spinner } from '../../shared/Spinner';
+import Card from '../../shared/Card';
+import { useGetTodoItem } from '../../hook/useGetTodoItem';
+import { useDeleteTodoItem } from '../../hook/useDeleteTodoItem';
 import { motion, AnimatePresence } from 'framer-motion';
-import '../styled/TodoListItems.css';
+import '../../styled/TodoListItems.css';
 
 function TodoListItems({ onEditTodoItem }) {
   const queryClient = useQueryClient();
@@ -103,5 +104,9 @@ function TodoListItems({ onEditTodoItem }) {
     </>
   );
 }
+
+TodoListItems.propTypes = {
+  onEditTodoItem: PropTypes.func,
+};
 
 export default TodoListItems;

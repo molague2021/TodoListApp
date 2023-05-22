@@ -15,7 +15,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import { TextField } from '@mui/material';
-import { useSaveTodoItem } from '../../hook/useSaveTodoItem';
+
 import { TodoItem } from '../../TodoItem.interface';
 import { useContext } from 'react';
 import TodoContext from '../../context/TodoContext';
@@ -25,6 +25,7 @@ interface CreateReminderModalProps {
   handleNameChange: (value) => void;
   handleDateChange: (value) => void;
   handleCloseModal: () => void;
+  handleSubmit: (todoItem) => void;
   todoItem: TodoItem;
 }
 
@@ -33,6 +34,7 @@ export const CreateReminderModal = ({
   handleNameChange,
   handleDateChange,
   handleCloseModal,
+  handleSubmit,
   todoItem,
 }: CreateReminderModalProps) => {
   console.log(todoItem);
@@ -50,8 +52,6 @@ export const CreateReminderModal = ({
   // 	setReminderName(todoItemRef.current.name);
   // }, [todoItemRef.current.name]);
 
-  const { mutate: saveTodoItem } = useSaveTodoItem();
-
   const onNameChange = (name) => {
     handleNameChange(name);
   };
@@ -62,17 +62,7 @@ export const CreateReminderModal = ({
   };
 
   const onSubmit = () => {
-    saveTodoItem(
-      {
-        todoItemPayload: todoItem,
-        todoItemId: todoItem?.id?.toString() ?? '',
-      },
-      {
-        onSuccess: () => {
-          handleCloseModal();
-        },
-      }
-    );
+    handleSubmit(todoItem);
   };
 
   const onCancel = () => {

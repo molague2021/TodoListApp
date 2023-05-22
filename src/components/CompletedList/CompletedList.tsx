@@ -1,11 +1,19 @@
 import React from 'react';
 import { ListContainer } from '../../shared/ListContainer';
-import TodoListItems from '../TodoList/TodoListItems';
+import TodoListItem from '../TodoList/TodoListItem/TodoListItem';
+import { TodoList } from '../Todo';
+import { Spinner } from '../../shared/Spinner';
 
-export const CompletedList = () => {
-  return (
+export const CompletedList = ({ isLoading, todoList }) => {
+  if (!isLoading && (!todoList || todoList.length === 0)) {
+    return <p>No Items have been created.</p>;
+  }
+
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <ListContainer name="Completed Items" displayButton={false}>
-      <TodoListItems />
+      <TodoListItem todoList={todoList} isCompleteList={true} />
     </ListContainer>
   );
 };

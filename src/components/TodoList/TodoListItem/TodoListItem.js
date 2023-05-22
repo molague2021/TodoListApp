@@ -1,40 +1,26 @@
 import { useEffect, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import TodoContext from '../../context/TodoContext';
-import { FaTimes, FaEdit, FaRegCircle, FaRegCheckCircle } from 'react-icons/fa';
-import { Spinner } from '../../shared/Spinner';
-import Card from '../../shared/Card';
-import { useGetTodoItem } from '../../hook/useGetTodoItem';
-import { useDeleteTodoItem } from '../../hook/useDeleteTodoItem';
-import { motion, AnimatePresence } from 'framer-motion';
-import '../../styled/TodoListItems.css';
+import PropTypes from 'prop-types';
 
-function TodoListItems({ onEditTodoItem }) {
+import { useQueryClient } from '@tanstack/react-query';
+import TodoContext from '../../../context/TodoContext';
+import { CheckComplete } from './CheckComplete';
+import { FaTimes, FaEdit, FaRegCircle, FaRegCheckCircle } from 'react-icons/fa';
+import { Spinner } from '../../../shared/Spinner';
+import Card from '../../../shared/Card';
+import { useGetTodoItem } from '../../../hook/useGetTodoItem';
+import { useDeleteTodoItem } from '../../../hook/useDeleteTodoItem';
+import { motion, AnimatePresence } from 'framer-motion';
+import '../../../styled/TodoListItems.css';
+
+function TodoListItems({
+  todoList,
+  isCompleteList,
+  onEditTodoItem,
+  onCheckChange,
+}) {
   const queryClient = useQueryClient();
   const { mutate: mutateDeleteTodoItem } = useDeleteTodoItem();
-  //const { todoList, isLoading } = useContext(TodoContext);
-  const { data: todoList, isLoading } = useGetTodoItem();
-
-  if (!isLoading && (!todoList || todoList.length === 0)) {
-    return <p>No Items have been created.</p>;
-  }
-
-  //Checkmark the completed items in the List
-  const handleCheck = (id) => {
-    // setTodoItem((todoItem) =>
-    //   todoItem.map((selectedItem) => {
-    //     if (selectedItem.id === id) {
-    //       return {
-    //         ...selectedItem,
-    //         complete: !selectedItem.complete,
-    //       };
-    //     }
-    //     return selectedItem;
-    //   })
-    // );
-  };
 
   const handleEdit = (e, item) => {
     onEditTodoItem(e, item);
@@ -55,35 +41,21 @@ function TodoListItems({ onEditTodoItem }) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log('Calling use effect');
-  // }, [todoItem]);
-
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       {todoList?.map((item) => (
-        <Card>
+        <Card key={item.name}>
           <div key={item.id}>
             <button className="close" onClick={() => handleDelete(item.id)}>
               <FaTimes />
             </button>
-            <button className="edit" onClick={(e) => handleEdit(e, item)}>
-              <FaEdit />
-            </button>
-            <div style={{ display: 'flex' }}>
-              <button
-                className="circle"
-                type="checked"
-                onClick={() => handleCheck(item.id)}
-              >
-                {!item.complete ? (
-                  <FaRegCircle />
-                ) : (
-                  <FaRegCheckCircle style={{ color: 'green' }} />
-                )}
+            {!isCompleteList && (
+              <button className="edit" onClick={(e) => handleEdit(e, item)}>
+                <FaEdit />
               </button>
+            )}
+            <div style={{ display: 'flex' }}>
+              <CheckComplete item={item} onChange={onCheckChange} />
               <div>
                 <div className="text-display">{item.name}</div>
                 <div className="date">
@@ -106,7 +78,11 @@ function TodoListItems({ onEditTodoItem }) {
 }
 
 TodoListItems.propTypes = {
+  isLoading: PropTypes.bool,
+  todoList: PropTypes.array,
+  isCompleteList: PropTypes.bool,
   onEditTodoItem: PropTypes.func,
+  onCheckChange: PropTypes.func,
 };
 
 export default TodoListItems;

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import CreateReminderModal from '../../shared/CreateReminderModal';
-import TodoListItems from './TodoListItems';
+import TodoListItem from './TodoListItem/TodoListItem';
 import { ListContainer } from '../../shared/ListContainer';
+import { Spinner } from '../../shared/Spinner';
 
-function TodoListForm({ setIsOpen, handleEditTodoItem }) {
+function TodoListForm({ isLoading, todoList, setIsOpen, handleEditTodoItem }) {
   const handleCreateReminder = (e) => {
     e.preventDefault();
     setIsOpen(true);
@@ -15,14 +16,16 @@ function TodoListForm({ setIsOpen, handleEditTodoItem }) {
     handleEditTodoItem(todoItem);
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <ListContainer
       name="Todo List"
       displayButton={true}
       buttonName="Create reminder"
       onClick={handleCreateReminder}
     >
-      <TodoListItems onEditTodoItem={onEditTodoItem} />
+      <TodoListItem todoList={todoList} onEditTodoItem={onEditTodoItem} />
     </ListContainer>
   );
 }

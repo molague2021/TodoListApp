@@ -1,10 +1,4 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TodoItem } from '../TodoItem.interface';
 import { createTodoItem, updateTodoItem } from '../services/TodoService';
 
@@ -31,7 +25,6 @@ export const useSaveTodoItem = () => {
     {
       onSuccess: (response) => {
         queryClient.setQueryData(['todoItems'], (items: TodoItem[]) => {
-          console.log('item', items, response);
           if (todoItemExists(items, response)) {
             return items.map((item) => {
               if (item.id === response.id) {

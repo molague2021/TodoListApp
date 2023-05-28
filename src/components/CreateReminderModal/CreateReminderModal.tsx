@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import {
   Dialog,
   DialogActions,
@@ -17,8 +16,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { TextField } from '@mui/material';
 
 import { TodoItem } from '../../TodoItem.interface';
-import { useContext } from 'react';
-import TodoContext from '../../context/TodoContext';
+import './CreateReminderModal.css';
 
 interface CreateReminderModalProps {
   open: boolean;
@@ -37,27 +35,11 @@ export const CreateReminderModal = ({
   handleSubmit,
   todoItem,
 }: CreateReminderModalProps) => {
-  console.log(todoItem);
-  //   const todoItemRef = useRef(todoItem);
-  //   console.log(todoItemRef);
-  const [startDate, setStartDate] = useState<Dayjs>();
-
-  // useEffect(() => {
-  // 	if (todoItemRef.current.date) {
-  // 		setStartDate(dayjs(todoItemRef.current.date));
-  // 	}
-  // }, [todoItemRef.current.date]);
-
-  // useEffect(() => {
-  // 	setReminderName(todoItemRef.current.name);
-  // }, [todoItemRef.current.name]);
-
   const onNameChange = (name) => {
     handleNameChange(name);
   };
 
   const onDateChange = (date: Dayjs) => {
-    console.log(date);
     handleDateChange(date);
   };
 

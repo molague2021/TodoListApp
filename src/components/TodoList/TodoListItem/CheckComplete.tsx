@@ -9,10 +9,9 @@ interface CheckCompleteProps {
 
 export const CheckComplete = ({ item, onChange }: CheckCompleteProps) => {
   const itemRef = useRef<TodoItem>();
-  console.log(itemRef);
+
   const onCheckChange = (e) => {
     e.preventDefault();
-    console.log({ item });
     itemRef.current = {
       ...item,
       complete: !item.complete,

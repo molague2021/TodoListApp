@@ -1,16 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
-import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 
 import { useQueryClient } from '@tanstack/react-query';
-import TodoContext from '../../../context/TodoContext';
 import { CheckComplete } from './CheckComplete';
-import { FaTimes, FaEdit, FaRegCircle, FaRegCheckCircle } from 'react-icons/fa';
-import { Spinner } from '../../../shared/Spinner';
-import Card from '../../../shared/Card';
-import { useGetTodoItem } from '../../../hook/useGetTodoItem';
+import { TodoItemDate } from './TodoItemDate';
+import { TodoItemCategory } from './TodoItemCategory';
+import { FaTimes, FaEdit } from 'react-icons/fa';
+import Card from '../../../shared/Card/Card';
 import { useDeleteTodoItem } from '../../../hook/useDeleteTodoItem';
-import { motion, AnimatePresence } from 'framer-motion';
 import '../../../styled/TodoListItems.css';
 
 function TodoListItems({
@@ -56,19 +52,8 @@ function TodoListItems({
             )}
             <div style={{ display: 'flex' }}>
               <CheckComplete item={item} onChange={onCheckChange} />
-              <div>
-                <div className="text-display">{item.name}</div>
-                <div className="date">
-                  {dayjs(item.date).format('MM/DD/YYYY')}
-                </div>
-              </div>
-              <div className="category-text">
-                {item.category?.map((category) => (
-                  <div className="category">
-                    <p style={{ marginBottom: '5px' }}>{category}</p>
-                  </div>
-                ))}
-              </div>
+              <TodoItemDate name={item.name} date={item.date} />
+              <TodoItemCategory categories={item.category} />
             </div>
           </div>
         </Card>
